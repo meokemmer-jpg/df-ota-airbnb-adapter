@@ -13,6 +13,23 @@ crux-mk: true
 adapter_target: airbnb-ota
 commission_pct: 0.03
 
+# === Default-Action (Welle-51 Batch-5 Migration, per Schicht-2 v1.2) ===
+# Migration-Welle: Welle-51 Batch-5
+default_action:
+  description: "Airbnb-OTA-Connector fuer HeyLou-Hotels: Listings/Bookings/Webhook-Sync via Airbnb-API mit OAuth + Commission-Tracker (3% Host-Kommission) + Tenant-Context-Isolation"
+  rho_per_run_eur: 95
+  rho_validation_source: unvalidated
+  block_gates:
+    - gate_id: K13_PAV
+      block_reason: "Pre-Action-Check failed (Airbnb-API-Health daily-anchor missing ODER OAuth-Token expired ODER PHRONESIS_TICKET missing fuer Real-Mode)"
+      false_block_cost_eur: 45
+      legitimate_block_condition: "Airbnb-API unreachable >300s ODER OAuth-Token-Refresh-Failure ODER DF_OTA_AIRBNB_REAL_ENABLED=true ohne PHRONESIS_TICKET"
+    - gate_id: K12
+      block_reason: "Provenance fehlt in Booking-Response ODER Webhook-Payload Schema-Mismatch ODER Commission-Tracker-Drift"
+      false_block_cost_eur: 35
+      legitimate_block_condition: "Airbnb-Response ohne listing_id/booking_id-Provenance ODER Webhook-Signature-Verification failed"
+  graceful_degradation_path: "degraded_no_real_api (DF_OTA_AIRBNB_REAL_ENABLED=false → Mock-Listings) ODER standalone_mock (Internet-Outage, voller Mock-Fallback ohne Commission-Tracking)"
+
 llm_providers: []
 
 # === K11-K16 ===
