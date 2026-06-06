@@ -1,0 +1,8 @@
+{
+  "df": "df-ota-airbnb-adapter",
+  "ts": "2026-06-05T15:47:51.726379+00:00",
+  "ok": true,
+  "bytes": 3703,
+  "model": "qwen2.5:14b-instruct",
+  "duration_s": 66.4
+}
