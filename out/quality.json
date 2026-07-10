@@ -1,9 +1,9 @@
 {
   "df": "df-ota-airbnb-adapter",
-  "ts": "2026-07-10T01:04:58.417665+00:00",
+  "ts": "2026-07-10T02:57:57.155933+00:00",
   "maturity": "TESTED",
   "maturity_level": 4,
   "evidence_grade": 4,
-  "wargame_verdict": null,
+  "wargame_verdict": "CONDITIONAL",
   "crux": "[CRUX-MK]"
 }
